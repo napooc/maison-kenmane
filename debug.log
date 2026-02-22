@@ -1,0 +1,108 @@
+2026-02-22T15:45:51.062Z [console][error] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <a> a 
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+          <SegmentViewNode type="page" pagePath="/user/app/...">
+            <SegmentTrieNode>
+            <Home>
+              <main data-orchids-id="src/app/pa..." data-orchids-name="main" className="min-h-screen">
+                <Header>
+                <Hero>
+                <FeaturesBar>
+                <BestSellers data-orchids-id="src/app/pa..." data-orchids-name="BestSellers">
+                  <section data-orchids-id="src/compon..." data-orchids-name="section" id="meilleures..." ...>
+                    <div data-orchids-id="src/compon..." data-orchids-name="div" className="max-w-[140...">
+                      <div>
+                      <div data-orchids-id="src/compon..." data-orchids-name="div" className="grid grid-...">
+                        <ProductCard data-map-index={0} data-orchids-id="src/compon..." data-orchids-name="ProductCard" ...>
+                          <div data-orchids-id="src/compon..." data-orchids-name="div" className="group flex..." ...>
+                            <LinkComponent data-orchids-id="src/compon..." data-orchids-name="Link" href="/produits/..." ...>
+>                             <a
+>                               data-orchids-id="src/components/ProductCard.tsx:37:6"
+>                               data-orchids-name="Link"
+>                               className="block"
+>                               ref={function}
+>                               onClick={function onClick}
+>                               onMouseEnter={function onMouseEnter}
+>                               onTouchStart={function onTouchStart}
+>                               href="/produits/caftan-royal-ivoire"
+>                             >
+                                ...
+             ...
+2026-02-22T15:45:51.062Z [console][error] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. a <a>
+2026-02-22T15:45:51.062Z [console][error] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <a> a 
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+          <SegmentViewNode type="page" pagePath="/user/app/...">
+            <SegmentTrieNode>
+            <Home>
+              <main data-orchids-id="src/app/pa..." data-orchids-name="main" className="min-h-screen">
+                <Header>
+                <Hero>
+                <FeaturesBar>
+                <BestSellers data-orchids-id="src/app/pa..." data-orchids-name="BestSellers">
+                  <section data-orchids-id="src/compon..." data-orchids-name="section" id="meilleures..." ...>
+                    <div data-orchids-id="src/compon..." data-orchids-name="div" className="max-w-[140...">
+                      <div>
+                      <div data-orchids-id="src/compon..." data-orchids-name="div" className="grid grid-...">
+                        <ProductCard data-map-index={0} data-orchids-id="src/compon..." data-orchids-name="ProductCard" ...>
+                          <div data-orchids-id="src/compon..." data-orchids-name="div" className="group flex..." ...>
+                            <LinkComponent data-orchids-id="src/compon..." data-orchids-name="Link" href="/produits/..." ...>
+>                             <a
+>                               data-orchids-id="src/components/ProductCard.tsx:37:6"
+>                               data-orchids-name="Link"
+>                               className="block"
+>                               ref={function}
+>                               onClick={function onClick}
+>                               onMouseEnter={function onMouseEnter}
+>                               onTouchStart={function onTouchStart}
+>                               href="/produits/caftan-royal-ivoire"
+>                             >
+                                ...
+             ...
+2026-02-22T15:45:51.062Z [console][error] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. a <a>
+2026-02-22T15:45:51.062Z [console][error] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <a> a 
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>
+          <SegmentViewNode type="page" pagePath="/user/app/...">
+            <SegmentTrieNode>
+            <Home>
+              <main data-orchids-id="src/app/pa..." data-orchids-name="main" className="min-h-screen">
+                <Header>
+                <Hero>
+                <FeaturesBar>
+                <BestSellers data-orchids-id="src/app/pa..." data-orchids-name="BestSellers">
+                  <section data-orchids-id="src/compon..." data-orchids-name="section" id="meilleures..." ...>
+                    <div data-orchids-id="src/compon..." data-orchids-name="div" className="max-w-[140...">
+                      <div>
+                      <div data-orchids-id="src/compon..." data-orchids-name="div" className="grid grid-...">
+                        <ProductCard data-map-index={0} data-orchids-id="src/compon..." data-orchids-name="ProductCard" ...>
+                          <div data-orchids-id="src/compon..." data-orchids-name="div" className="group flex..." ...>
+                            <LinkComponent data-orchids-id="src/compon..." data-orchids-name="Link" href="/produits/..." ...>
+>                             <a
+>                               data-orchids-id="src/components/ProductCard.tsx:37:6"
+>                               data-orchids-name="Link"
+>                               className="block"
+>                               ref={function}
+>                               onClick={function onClick}
+>                               onMouseEnter={function onMouseEnter}
+>                               onTouchStart={function onTouchStart}
+>                               href="/produits/caftan-royal-ivoire"
+>                             >
+                                ...
+             ...
+2026-02-22T15:45:51.062Z [console][error] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. a <a>
