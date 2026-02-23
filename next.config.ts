@@ -18,12 +18,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  webpack: (config) => {
+    if (process.platform === "win32") {
+      config.cache = false;
+    }
+    return config;
   },
   turbopack: {
     rules: {

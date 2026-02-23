@@ -1,5 +1,45 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Shopify setup (headless)
+
+1) Create `.env.local` at the project root (you can copy from `.env.example`).
+
+Required:
+
+- `SHOPIFY_STORE_DOMAIN` (example: `your-store.myshopify.com`)
+- `SHOPIFY_STOREFRONT_ACCESS_TOKEN`
+
+For COD order creation (server-side):
+
+- `SHOPIFY_ADMIN_ACCESS_TOKEN`
+
+### OAuth connect (Client ID / Secret)
+
+If you only have a Shopify app `Client ID` + `Client Secret`, set these in `.env.local`:
+
+- `SHOPIFY_APP_CLIENT_ID`
+- `SHOPIFY_APP_CLIENT_SECRET`
+
+Then open:
+
+- `http://localhost:3000/api/auth/shopify/start?shop=your-store.myshopify.com`
+
+After you approve, the app saves tokens into `.shopify-tokens.json` (dev-only) and the storefront will load products from your Shopify store.
+
+Optional:
+
+- `NEXT_PUBLIC_COD_CITIES` (comma-separated)
+- `NEXT_PUBLIC_WHATSAPP_NUMBER` (international format without `+`)
+
+### Product tagging
+
+The homepage sections pull products using Shopify tags:
+
+- Best sellers: `bestseller` (or `best-seller`)
+- Nouveautés: `nouveaute` (or `nouveau`)
+
+If no tagged products are found, the UI falls back to the first products returned by Shopify.
+
 ## Getting Started
 
 First, run the development server:

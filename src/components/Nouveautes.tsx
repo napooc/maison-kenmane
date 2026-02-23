@@ -1,40 +1,43 @@
-"use client";
-
-import { PRODUCTS } from "@/lib/products";
+import { getProducts } from "@/lib/shopify";
 import ProductCard from "./ProductCard";
-import Image from "next/image";
 import Link from "next/link";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 
-export default function Nouveautes() {
-  const products = PRODUCTS.filter(
-    (p) => p.category === "nouveaute" || p.category === "both"
-  );
+export default async function Nouveautes() {
+  const tagged = await getProducts({
+    first: 6,
+    query: "tag:nouveaute OR tag:nouveau",
+    revalidateSeconds: 60,
+  }).catch((err) => {
+    console.error("[Shopify] Nouveautes getProducts(tagged) failed", err);
+    return [];
+  });
+
+  const products = tagged.length
+    ? tagged
+    : await getProducts({ first: 6, revalidateSeconds: 60 }).catch((err) => {
+        console.error("[Shopify] Nouveautes getProducts(fallback) failed", err);
+        return [];
+      });
 
   return (
-    <section id="nouveautes" className="bg-[#FDFCFA]">
-      {/* Feature banner */}
-      <div className="relative h-[70vh] min-h-[520px] overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=90"
-          alt="Nouveautés Maison Kenmane"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A18]/70 via-[#1A1A18]/30 to-transparent" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+    <section id="nouveautes" className="bg-[var(--mk-ivory-light)]">
+      {/* Feature banner (image-free for speed) */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 mk-section-bg" />
+        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28">
+          <div className="max-w-[720px]">
             <p
-              className="text-[#B8955A] text-[10px] tracking-[0.28em] uppercase mb-5"
+              className="text-[var(--mk-gold)] text-[10px] tracking-[0.28em] uppercase mb-5"
               style={{ fontFamily: "var(--font-jost)" }}
             >
               Vient d&apos;arriver
             </p>
             <h2
-              className="text-[#F7F4EF] font-[300] leading-[1] mb-8"
+              className="text-[var(--mk-charcoal)] font-[300] leading-[1.02] mb-8"
               style={{
                 fontFamily: "var(--font-cormorant)",
-                fontSize: "clamp(44px, 7vw, 90px)",
+                fontSize: "clamp(44px, 7vw, 82px)",
               }}
             >
               Nouveautés
@@ -42,14 +45,14 @@ export default function Nouveautes() {
               <span className="italic">de Saison</span>
             </h2>
             <p
-              className="text-[#D6D3CC] max-w-[400px] leading-relaxed mb-10"
-              style={{ fontFamily: "var(--font-jost)", fontSize: "13px", fontWeight: 300, letterSpacing: "0.04em" }}
+              className="text-[var(--mk-gray)] max-w-[520px] leading-relaxed mb-10"
+              style={{ fontFamily: "var(--font-jost)", fontSize: "13px", fontWeight: 300, letterSpacing: "0.05em" }}
             >
-              Les dernières créations de nos ateliers, inspirées des tendances contemporaines et du patrimoine marocain.
+              Les dernières créations, sélectionnées et synchronisées depuis Shopify.
             </p>
             <Link
               href="#nouveautes-grid"
-              className="inline-block text-[#F7F4EF] text-[11px] tracking-[0.2em] uppercase border-b border-[#B8955A] pb-0.5 hover:text-[#B8955A] transition-colors duration-300"
+              className="inline-block text-[var(--mk-charcoal)] text-[11px] tracking-[0.2em] uppercase border-b border-[var(--mk-gold)] pb-0.5 hover:text-[var(--mk-gold)] transition-colors duration-300"
               style={{ fontFamily: "var(--font-jost)" }}
             >
               Découvrir
@@ -61,11 +64,30 @@ export default function Nouveautes() {
       {/* Products grid */}
       <div id="nouveautes-grid" className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-            {products.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+              {products.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="max-w-[720px] mx-auto">
+              <Empty className="border-[#E4E0D8]">
+                <EmptyHeader>
+                  <EmptyTitle>Aucun produit</EmptyTitle>
+                  <EmptyDescription>Nous n'avons aucun produit à afficher pour le moment.</EmptyDescription>
+                </EmptyHeader>
+                <EmptyContent>
+                  <p
+                    className="text-[11px] tracking-[0.14em] uppercase text-[#8A8880]"
+                    style={{ fontFamily: "var(--font-jost)" }}
+                  >
+                    Aucune donnée produit disponible
+                  </p>
+                </EmptyContent>
+              </Empty>
+            </div>
+          )}
         </div>
       </div>
     </section>

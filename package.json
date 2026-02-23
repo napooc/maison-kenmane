@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "clean": "node scripts/clean-next.mjs",
+    "check:admin-scopes": "node scripts/check-shopify-admin-scopes.mjs",
+    "dev:clean": "npm run clean && next dev",
+    "dev": "next dev",
     "build": "next build",
+    "start:clean": "npm run clean && next start",
     "start": "next start",
     "lint": "eslint"
   },

@@ -8,11 +8,8 @@ import { useCart } from "./CartProvider";
 import CartDrawer from "./CartDrawer";
 
 const NAV_LINKS = [
-  { label: "Accueil", href: "/" },
-  { label: "Collections", href: "/collections" },
-  { label: "Meilleures Ventes", href: "/#meilleures-ventes" },
-  { label: "Nouveautés", href: "/#nouveautes" },
-  { label: "À Propos", href: "/a-propos" },
+  { label: "Produits", href: "/produits" },
+  { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -30,7 +27,7 @@ export default function Header() {
   return (
     <>
       {/* Announcement bar */}
-      <div className="bg-[#1A1A18] text-[#F7F4EF] text-center py-2.5 overflow-hidden">
+      <div className="bg-[var(--mk-charcoal)] text-[var(--mk-ivory)] text-center py-2.5 overflow-hidden">
         <div className="flex whitespace-nowrap animate-marquee">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="inline-flex items-center gap-6 mx-8 text-[11px] tracking-[0.18em] uppercase font-[var(--font-jost)]">
@@ -49,8 +46,8 @@ export default function Header() {
       <header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#FDFCFA]/95 backdrop-blur-md shadow-[0_1px_0_#E4E0D8]"
-            : "bg-[#F7F4EF]"
+            ? "bg-[var(--mk-ivory-light)]/95 backdrop-blur-md shadow-[0_1px_0_var(--mk-border)]"
+            : "bg-[var(--mk-ivory)]"
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between h-[72px]">
@@ -64,7 +61,7 @@ export default function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
+          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
             <Image
               src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ideogram-v3.0_i_want..._imresizer-1771774770605.jpg?width=8000&height=8000&resize=contain"
               alt="Maison Kenmane"
@@ -73,6 +70,20 @@ export default function Header() {
               className="object-contain h-[52px] w-auto"
               priority
             />
+            <div className="hidden sm:flex flex-col leading-none">
+              <span
+                className="text-[10px] tracking-[0.28em] uppercase text-[var(--mk-gold)]"
+                style={{ fontFamily: "var(--font-jost)", fontWeight: 400 }}
+              >
+                Maison
+              </span>
+              <span
+                className="text-[18px] text-[var(--mk-charcoal)]"
+                style={{ fontFamily: "var(--font-cormorant)", fontWeight: 300, letterSpacing: "0.02em" }}
+              >
+                Kenmane
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav */}
@@ -112,7 +123,7 @@ export default function Header() {
         </div>
 
         {/* Bottom border */}
-        <div className="h-px bg-[#E4E0D8]" />
+        <div className="h-px bg-[var(--mk-border)]" />
       </header>
 
       {/* Mobile overlay menu */}

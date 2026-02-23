@@ -14,15 +14,21 @@ interface ProductCardProps {
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
 
+  const shouldAnimateIn = index < 12;
+
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const firstAvailable = product.variants.find((v) => v.available);
+    const price = firstAvailable?.price ?? product.price;
     addItem({
       id: `${product.id}-${firstAvailable?.id ?? "default"}`,
+      merchandiseId: firstAvailable?.id ?? "",
       productId: product.id,
+      handle: product.handle,
       title: product.title,
-      price: product.price,
+      price,
+      currency: product.currency,
       image: product.image,
       variant: firstAvailable?.title,
     });
@@ -30,12 +36,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   return (
     <div
-      className="group flex flex-col animate-fadeInUp"
-      style={{ animationDelay: `${index * 0.1}s` }}
+      className={`group flex flex-col mk-cv-auto ${shouldAnimateIn ? "animate-fadeInUp" : ""}`}
+      style={shouldAnimateIn ? { animationDelay: `${index * 0.06}s` } : undefined}
     >
       {/* Image container */}
       <Link href={`/produits/${product.handle}`} className="block">
-        <div className="relative aspect-[3/4] bg-[#EDE0CC] overflow-hidden img-hover-zoom">
+        <div className="relative aspect-[3/4] bg-[var(--mk-gold-pale)] overflow-hidden img-hover-zoom">
           <Image
             src={product.image}
             alt={product.title}
@@ -67,12 +73,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <ShoppingBag size={13} strokeWidth={1.5} />
                 Ajouter
               </button>
-              <button
+              <Link
+                href={`/produits/${product.handle}`}
                 className="bg-[#1A1A18] text-[#F7F4EF] p-3 hover:bg-[#B8955A] transition-colors duration-300"
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = `/produits/${product.handle}`; }}
+                aria-label={`Voir ${product.title}`}
               >
                 <Eye size={14} strokeWidth={1.5} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

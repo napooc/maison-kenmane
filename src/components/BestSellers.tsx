@@ -1,13 +1,24 @@
-"use client";
-
-import { PRODUCTS } from "@/lib/products";
+import { getProducts } from "@/lib/shopify";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 
-export default function BestSellers() {
-  const products = PRODUCTS.filter(
-    (p) => p.category === "bestseller" || p.category === "both"
-  );
+export default async function BestSellers() {
+  const tagged = await getProducts({
+    first: 6,
+    query: "tag:bestseller OR tag:best-seller",
+    revalidateSeconds: 60,
+  }).catch((err) => {
+    console.error("[Shopify] BestSellers getProducts(tagged) failed", err);
+    return [];
+  });
+
+  const products = tagged.length
+    ? tagged
+    : await getProducts({ first: 6, revalidateSeconds: 60 }).catch((err) => {
+        console.error("[Shopify] BestSellers getProducts(fallback) failed", err);
+        return [];
+      });
 
   return (
     <section id="meilleures-ventes" className="py-24 lg:py-32 bg-[#F7F4EF]">
@@ -40,20 +51,39 @@ export default function BestSellers() {
         </div>
 
         {/* Product grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-          {products.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+            {products.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="max-w-[720px] mx-auto">
+            <Empty className="border-[#E4E0D8]">
+              <EmptyHeader>
+                <EmptyTitle>Aucun produit</EmptyTitle>
+                <EmptyDescription>Nous n'avons aucun produit à afficher pour le moment.</EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <p
+                  className="text-[11px] tracking-[0.14em] uppercase text-[#8A8880]"
+                  style={{ fontFamily: "var(--font-jost)" }}
+                >
+                  Aucune donnée produit disponible
+                </p>
+              </EmptyContent>
+            </Empty>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="text-center mt-16">
           <Link
-            href="/collections"
+            href="/produits"
             className="inline-block border border-[#1A1A18] text-[#1A1A18] text-[11px] tracking-[0.2em] uppercase px-12 py-4 hover:bg-[#1A1A18] hover:text-[#F7F4EF] transition-all duration-300"
             style={{ fontFamily: "var(--font-jost)" }}
           >
-            Voir toutes les Collections
+            Voir tous les Produits
           </Link>
         </div>
       </div>

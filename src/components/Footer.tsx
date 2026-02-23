@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Instagram, Facebook } from "lucide-react";
@@ -24,10 +22,7 @@ export default function Footer() {
               Soyez les premiers informés de nos nouvelles collections.
             </p>
           </div>
-          <form
-            className="flex w-full lg:w-auto"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          <form className="flex w-full lg:w-auto" action="#">
             <input
               type="email"
               placeholder="Votre adresse email"
@@ -83,47 +78,54 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Collections */}
+          {/* Navigation */}
           <div>
             <h4
               className="text-[#F7F4EF] text-[11px] tracking-[0.2em] uppercase mb-6"
               style={{ fontFamily: "var(--font-jost)", fontWeight: 500 }}
             >
-              Collections
+              Navigation
             </h4>
             <ul className="flex flex-col gap-3.5">
-              {["Caftans", "Takchitas", "Jellabas", "Accessoires", "Meilleures Ventes", "Nouveautés"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "Produits", href: "/produits" },
+                { label: "À propos", href: "/a-propos" },
+                { label: "Contact", href: "/contact" },
+              ].map((item) => (
+                <li key={item.href}>
                   <Link
-                    href="/collections"
+                    href={item.href}
                     className="text-[#8A8880] text-[12px] tracking-[0.04em] hover:text-[#B8955A] transition-colors"
                     style={{ fontFamily: "var(--font-jost)", fontWeight: 300 }}
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Aide */}
+          {/* Service */}
           <div>
             <h4
               className="text-[#F7F4EF] text-[11px] tracking-[0.2em] uppercase mb-6"
               style={{ fontFamily: "var(--font-jost)", fontWeight: 500 }}
             >
-              Aide & Service
+              Service
             </h4>
             <ul className="flex flex-col gap-3.5">
-              {["FAQ", "Guide des tailles", "Livraison & Retours", "Suivi de commande", "Contact"].map((item) => (
+              {[
+                "Paiement à la livraison",
+                "Livraison & Retours",
+                "Service client",
+              ].map((item) => (
                 <li key={item}>
-                  <Link
-                    href="/contact"
-                    className="text-[#8A8880] text-[12px] tracking-[0.04em] hover:text-[#B8955A] transition-colors"
+                  <p
+                    className="text-[#8A8880] text-[12px] tracking-[0.04em]"
                     style={{ fontFamily: "var(--font-jost)", fontWeight: 300 }}
                   >
                     {item}
-                  </Link>
+                  </p>
                 </li>
               ))}
             </ul>

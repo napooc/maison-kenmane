@@ -5,9 +5,12 @@ import { toast } from "sonner";
 
 export interface CartItem {
   id: string;
+  merchandiseId: string;
   productId: string;
+  handle: string;
   title: string;
   price: number;
+  currency: string;
   image: string;
   variant?: string;
   quantity: number;
@@ -35,7 +38,25 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const stored = localStorage.getItem("mk_cart");
     if (stored) {
-      try { setItems(JSON.parse(stored)); } catch {}
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setItems(
+            parsed.filter((i) =>
+              i &&
+              typeof i.id === "string" &&
+              typeof i.productId === "string" &&
+              typeof i.title === "string" &&
+              typeof i.price === "number" &&
+              typeof i.image === "string" &&
+              typeof i.quantity === "number" &&
+              typeof i.currency === "string" &&
+              typeof i.handle === "string" &&
+              typeof i.merchandiseId === "string"
+            )
+          );
+        }
+      } catch {}
     }
   }, []);
 

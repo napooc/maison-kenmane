@@ -1,5 +1,3 @@
-"use client";
-
 import { Truck, Shield, RefreshCw, Star } from "lucide-react";
 
 const FEATURES = [

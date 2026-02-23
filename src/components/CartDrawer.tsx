@@ -4,9 +4,11 @@ import Image from "next/image";
 import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useCart } from "./CartProvider";
 import { formatPrice } from "@/lib/products";
+import { useRouter } from "next/navigation";
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total, count } = useCart();
+  const router = useRouter();
 
   if (!isOpen) return null;
 
@@ -124,7 +126,7 @@ export default function CartDrawer() {
                         className="text-[13px] text-[#1A1A18] font-[500]"
                         style={{ fontFamily: "var(--font-jost)" }}
                       >
-                        {formatPrice(item.price * item.quantity)}
+                        {formatPrice(item.price * item.quantity, item.currency)}
                       </p>
                     </div>
                   </div>
@@ -148,7 +150,7 @@ export default function CartDrawer() {
                 className="text-[15px] text-[#1A1A18]"
                 style={{ fontFamily: "var(--font-cormorant)", fontWeight: 400 }}
               >
-                {formatPrice(total)}
+                {formatPrice(total, items[0]?.currency || "MAD")}
               </span>
             </div>
             <p
@@ -159,6 +161,10 @@ export default function CartDrawer() {
             </p>
             <button className="w-full bg-[#1A1A18] text-[#F7F4EF] py-4 text-[11px] tracking-[0.2em] uppercase hover:bg-[#B8955A] transition-colors duration-300 font-[500]"
               style={{ fontFamily: "var(--font-jost)" }}
+              onClick={() => {
+                closeCart();
+                router.push("/checkout");
+              }}
             >
               Commander — Paiement à la livraison
             </button>
